@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title></title>
+<meta name="author" content="(Adrian Martin)"/>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/blood.css" id="theme"/>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/css/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1></h1>
+<h2>Adrian Martin</h2>
+<h2><a href="mailto:adrian@pointslope">adrian@pointslope</a></h2>
+<h2></h2>
+</section>
+<section>
+<section id="slide-orgheadline3">
+<h2 id="orgheadline3">Intro To ClojureScript Series</h2>
+<ol>
+<li>Getting Familiar with the Language
+<ul>
+<li>Exploring with the REPL</li>
+
+</ul></li>
+<li>Moving to the Browser
+<ul>
+<li>Advanced Language Concepts</li>
+<li>Tools of the Trade</li>
+<li>JavaScript Interop</li>
+
+</ul></li>
+<li>Going Deeper
+<ul>
+<li>Atoms</li>
+<li>CLJS</li>
+<li>Ajax (Asynchronous Calls)</li>
+
+</ul></li>
+<li>Single Page Applications
+<ul>
+<li>Reagent</li>
+<li>Om Next</li>
+
+</ul></li>
+
+</ol>
+</section>
+<section id="slide-orgheadline2">
+<h3 id="orgheadline2">Working with the REPL</h3>
+<div class="outline-text-3" id="text-orgheadline2">
+</div></section>
+<section id="slide-orgheadline1">
+<h4 id="orgheadline1">REPL</h4>
+<ul>
+<li>Read Eval Print Loop</li>
+<li>Allows us to run/evaluate code in our terminal</li>
+<li>lein repl</li>
+<li>planck</li>
+
+</ul>
+
+<p>
+Online Clojure REPLs
+</p>
+
+<p>
+<a href="http://clojurescript.net/">http://clojurescript.net/</a>
+</p>
+
+<p>
+Command line ClojureScript REPL OSX
+</p>
+
+<p>
+<a href="https://github.com/mfikes/planck">https://github.com/mfikes/planck</a>
+</p>
+
+<p>
+brew install planck
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline6">
+<h2 id="orgheadline6">Introduction</h2>
+<div class="outline-text-2" id="text-orgheadline6">
+</div></section>
+<section id="slide-orgheadline4">
+<h3 id="orgheadline4">Me</h3>
+<ul>
+<li>Adrian Martin</li>
+<li>Engineer at Point Slope</li>
+<li>Full Stack and DevOps</li>
+<li>Python/Ruby/Java/PHP/Clojure/Javascript</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline5">
+<h3 id="orgheadline5">Point Slope</h3>
+
+<div class="figure">
+<p><img src="./img/pointslope.png" alt="pointslope.png" />
+</p>
+</div>
+<ul>
+<li>Web &amp; Application Development</li>
+<li>Systems Architecture &amp; Integration</li>
+<li>Work with enterprise &amp; start ups</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline10">
+<h2 id="orgheadline10">Why ClojureScript</h2>
+<p>
+"Why are we doing this? Because Clojure rocks, and JavaScript reaches."
+</p>
+
+<p>
+— Rich Hickey
+</p>
+
+</section>
+<section id="slide-orgheadline7">
+<h3 id="orgheadline7">What is ClojureScript?</h3>
+
+<div class="figure">
+<p><img src="http://i.imgur.com/zl0hM3I.png" alt="zl0hM3I.png" />
+</p>
+</div>
+
+<p>
+"ClojureScript is a compiler for Clojure that targets JavaScript.
+It is designed to emit JavaScript code which is compatible with the
+advanced compilation mode of the Google Closure optimizing
+compiler."
+</p>
+
+</section>
+<section>
+
+
+<div class="figure">
+<p><img src="http://i.imgur.com/e3E0YPX.gif" alt="e3E0YPX.gif" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline8">
+<h3 id="orgheadline8">ClojureScript Language Features</h3>
+<ul>
+<li class="fragment roll-in">Immutability</li>
+<li class="fragment roll-in">Rich data structures</li>
+<li class="fragment roll-in">Lazy Evaluation</li>
+<li class="fragment roll-in">High Order Functions</li>
+<li class="fragment roll-in">First-Class Functions</li>
+<li class="fragment roll-in">Closures</li>
+<li class="fragment roll-in">Recursion</li>
+<li class="fragment roll-in">Macros</li>
+<li class="fragment roll-in">REPL</li>
+<li class="fragment roll-in">Destructuring</li>
+
+</ul>
+
+</section>
+<section>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">I get that</td>
+<td class="org-left">I don't get that</td>
+</tr>
+
+<tr>
+<td class="org-left"><img src="http://i.imgur.com/3VI0Tyh.gif" alt="3VI0Tyh.gif" /></td>
+<td class="org-left"><img src="http://i.imgur.com/lk32h2G.gif" alt="lk32h2G.gif" /></td>
+</tr>
+</tbody>
+</table>
+
+</section>
+<section id="slide-orgheadline9">
+<h3 id="orgheadline9">Clojurescript vs Clojure</h3>
+
+<div class="figure">
+<p><img src="http://i.imgur.com/99KXCBj.gif" alt="99KXCBj.gif" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline36">
+<h2 id="orgheadline36">ClojureScript: Language Basics</h2>
+<div class="outline-text-2" id="text-orgheadline36">
+</div></section>
+<section id="slide-orgheadline13">
+<h3 id="orgheadline13">Jargon and Nomenclature</h3>
+<div class="outline-text-3" id="text-orgheadline13">
+</div></section>
+<section id="slide-orgheadline11">
+<h4 id="orgheadline11">Arity</h4>
+<ul>
+<li>The number of arguments a functions accepts</li>
+<li>Similar to method overloading in other languages</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Clojure
+(+)
+(+ 1)
+(+ 1 2)
+(+ 1 2 3)
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline12">
+<h4 id="orgheadline12">Immutability &amp; Persistent Data</h4>
+
+<div class="figure">
+<p><img src="http://i.imgur.com/b1wTMoO.gif" alt="b1wTMoO.gif" />
+</p>
+</div>
+
+<ul>
+<li>Immutable data can't change once it's created</li>
+<li>A new "updated" copy of the data is returned</li>
+<li>The new collection shares the structure of the original collection</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline15">
+<h3 id="orgheadline15">Understanding the Syntax</h3>
+<p>
+((((((((((((Don't Let These Scare You))))))))))))
+</p>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Clojure function invocation
+()
+
+;; Example sytnax for all Clojure operations
+(operator operand-1 operand-2 ... operand-N)
+
+;; In other words
+(function-name argument1 argument2 argument3 ...)
+
+;; Example using "plus" function
+(+ 1 2)
+(+ 1 2 3)
+(+ 1 2 3 4)
+
+;; Inside Out Evaluation
+(+ 1 (* 4 (/ 10 2))) 
+(+ 1 (* 4 5)
+(+ 1 20)
+21
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline14">
+<h4 id="orgheadline14">Functions</h4>
+<ul>
+<li>Read function calls right to left ("inside out")
+<ul>
+<li>Most of the time</li>
+
+</ul></li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="c">// Clojure use the list syntax for function invocation
+()
+// JavaScript
+function() {}
+
+(name arg)
+
+function name(arg) {}
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class="c">// ClojureScript
+(defn my_band
+   "Some super cool doc string"
+   [band]
+   (println "My favorite band is" band))
+
+(my_band "TOOL")
+
+// JavaScript
+function my_band(band) {
+   return "My favorite band is " + band;
+}
+my_band("TOOL")
+</code></pre>
+</div>
+
+</section>
+<section>
+
+<div class="org-src-container">
+
+<pre><code class="c">//ClojureScript
+(def my_band (fn [band] (println "My favorite band is" band)))
+(my_band "TOOL")
+
+//JavaScript
+var my_band = function(band) {
+   return "My favorite band is " + band;
+}
+my_band("TOOL")
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class="c">// ClojureScript
+((fn [band] (println "My favorite band is" band)) "TOOL")
+
+// JavaScript
+(function (band) {
+   return "My favorite band is " + band;
+})("TOOL");
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class="c">//We pass anonymous functions as arguments all the time.
+// In JavaScript it's almost second nature
+$("div#a.open_something").on("click", function(event) {
+   event.preventDefault();
+   ...
+});
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline23">
+<h3 id="orgheadline23">Primitive Data Types</h3>
+
+<div class="figure">
+<p><img src="http://i.imgur.com/3mDUMdH.gif" alt="3mDUMdH.gif" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline16">
+<h4 id="orgheadline16">Numbers</h4>
+<ul>
+<li>Same as JavaScript numbers</li>
+<li>Can be integers or floating point numbers</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="clojure">1
+2000
+3.14
+-50
+-1.2e30
+x0000ff
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Exercise: Explore numbers in your REPL
+(+ 1 1)
+(- 8 4)
+(/ 10 20)
+(* 2 4)
+</code></pre>
+</div>
+</section>
+<section id="slide-orgheadline17">
+<h4 id="orgheadline17">Strings</h4>
+<ul>
+<li>Entered as literals using double quotes</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Exercise: Explore strings in your REPL
+"foo"
+(str "homer")
+(str 42)
+(println "I'm a string")
+
+(require '[clojure.string :as s])
+(s/join " " ["Let's" "make" "a" "sentence!"])
+"Let's make a sentence!"
+</code></pre>
+</div>
+</section>
+<section id="slide-orgheadline18">
+<h4 id="orgheadline18">Characters</h4>
+<ul>
+<li>JavaScript does not have a character type</li>
+<li>ClojuresScript characters are implemented as single character strings</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="clojure">\a
+\b
+\c
+(println \x)
+(println \y)
+(println \z)
+</code></pre>
+</div>
+</section>
+<section id="slide-orgheadline19">
+<h4 id="orgheadline19">Boolean</h4>
+<ul>
+<li>Always true or false</li>
+<li>Logical false in ClojureScript is different tha JavaScript
+<ul>
+<li>nil</li>
+<li>false</li>
+<li>(js/undefined)</li>
+
+</ul></li>
+<li>Everything else is "truthy"</li>
+
+</ul>
+
+</section>
+<section>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Condition</th>
+<th scope="col" class="org-left">JavaScript</th>
+<th scope="col" class="org-left">ClojureScript</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">false</td>
+<td class="org-left">false</td>
+<td class="org-left">false</td>
+</tr>
+
+<tr>
+<td class="org-left">nil/null</td>
+<td class="org-left">false</td>
+<td class="org-left">false</td>
+</tr>
+
+<tr>
+<td class="org-left">js/undefined</td>
+<td class="org-left">false</td>
+<td class="org-left">false</td>
+</tr>
+
+<tr>
+<td class="org-left">[]</td>
+<td class="org-left">true</td>
+<td class="org-left">true</td>
+</tr>
+
+<tr>
+<td class="org-left">true</td>
+<td class="org-left">true</td>
+<td class="org-left">true</td>
+</tr>
+
+<tr>
+<td class="org-left">0</td>
+<td class="org-left">false</td>
+<td class="org-left">true</td>
+</tr>
+
+<tr>
+<td class="org-left">""</td>
+<td class="org-left">false</td>
+<td class="org-left">true</td>
+</tr>
+
+<tr>
+<td class="org-left">js/NaN</td>
+<td class="org-left">false</td>
+<td class="org-left">true</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+<section>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Exercise: Lets explore the values for these conditionals
+
+(if false :true :false)
+(if nil :true :false)
+(if js/undefined :true :false)
+(if [] :true :false)
+(if 0 :true :false)
+(if "" :true :false)
+(if js/NaN :true :false)
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline20">
+<h4 id="orgheadline20">Nil</h4>
+<ul>
+<li>Same as null in JavaScript</li>
+<li>Logically absent, empty, meaningless</li>
+<li>ClojureScript does not use "undefined" like you'll find in
+JavaScript</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="clojure">nil
+(println) ;; Always prints and returns nil
+(nil? "foo") ;; Check if argument is nil
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline21">
+<h4 id="orgheadline21">Vars</h4>
+<ul>
+<li>Evaluate to other values</li>
+<li>Most closely aligned to "var" in JavaScript</li>
+<li>Can be namespaced qualified</li>
+<li>Can resolve to functions</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">map
++
+set!
+(defn my_var [])
+(def my_var "it's a var!")
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class="javacsript">var my_var = []
+var my_var_func = function() {}
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline22">
+<h4 id="orgheadline22">Keywords</h4>
+<ul>
+<li>Similar to strings</li>
+<li>Keywords are normally used as keys in maps, enumerated values,
+or constants</li>
+<li>Can be namespace qualified</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">:keyword
+:my_namespaced/keyword
+::keyword
+
+;; Most common use case for keywords in ClojureScript
+{:key "value" :another-key "another value"}
+
+;; Keywords in other languages
+var stuff = {key: "value", another-key: "another value"} ;; JavaScript
+hashmap = {:key => "value" :another-key => "another value"} ;; Ruby
+dictionary = {"key": "value", "another-key": "another value"} ;; Python
+</code></pre>
+</div>
+
+</section>
+<section>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Exercise: Lets write some keywords!
+:my-cool-keyword
+:my_namespaced/something
+::neato
+
+(def this :that)
+(def duos {:rick "morty" :ren "stimpy" :bert "ernie"})
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline30">
+<h3 id="orgheadline30">Data Structures</h3>
+<p>
+"It is better to have 100 functions operate on one data structure than
+10 functions on 10 data structures."
+</p>
+
+<p>
+-Alan Perlis
+</p>
+</section>
+<section id="slide-orgheadline24">
+<h4 id="orgheadline24">Collections</h4>
+<ul>
+<li>Can contain primitive types or other collections</li>
+<li>Grouping of N number of items which can  be operated upon in
+some way</li>
+<li>Collections Types 
+<ul>
+<li>lists</li>
+<li>sets</li>
+<li>vectors</li>
+<li>maps</li>
+
+</ul></li>
+<li>Collections which contain the above guarantee
+<ul>
+<li>Equality</li>
+<li>Serializability</li>
+<li>Clojure compatibility</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline25">
+<h4 id="orgheadline25">Lists</h4>
+<ul>
+<li>Ordered collection of items</li>
+<li>In Clojure lists also indicate a form to be evaluated</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">'(1 "two" [:3])
+'(:fee :fi :fo :fum)
+(list :fee :fi :fo :fum)
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Exercise: Let's list it up!
+'(1 "two" [:3])
+'(:fee :fi :fo :fum)
+(list :fee :fi :fo :fum)
+(:fee :fi :fo :fum)
+
+;; Conj method will always prepend value to list
+(conj '(:fi :fo :fum) :fee)
+
+(def animals '(:cat :dog :bird))
+
+(first animals)
+(second animals)
+(last animals)
+(nth animals 1)
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline26">
+<h4 id="orgheadline26">Vectors</h4>
+<ul>
+<li>Ordered collection of items</li>
+<li>Similar equivalence to arrays in JavaScript and other languages</li>
+<li>Can be invoked as a function</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">[1 "two" '(:3)]
+[:fee :fi :fo :fum]
+(vector :fee :fi :fo :fum)
+(vec '(:fee :fi :fo :fum))
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Exercise: Let's vector it up!
+[1 "two" '(:3)]
+[:fee :fi :fo :fum]
+(vector :fee :fi :fo :fum)
+(vec '(:fee :fi :fo :fum))
+(nth [:fee :fi :fo :fum] 2)
+
+;; Define a vector in your REPL (hint - def macro)
+;; Get the "first" "second" "last" and 1st index value of the vector
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline27">
+<h4 id="orgheadline27">Maps</h4>
+<ul>
+<li>Associative collections utilizing key value pairs</li>
+<li>AKA: Dictionaries, Hash Map, Hashes, Associative Array</li>
+<li>Keys can be any data type or even other data structures</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Exercise: Let's Map it!
+
+{:peter "Shut up, Meg!" 
+ :mr-burns "Eeeexcellent!" 
+ :bugs "Eh, what's up doc?"}
+
+(def catchphrases {:peter "Shut up, Meg!" 
+                   :mr-burns "Eeeexcellent!" 
+                   :quagmire "Giggity!"})
+
+(catchphrases :bart)
+(:peter catchphrases)
+(get catchphrases :quagmire)
+(assoc catchphrases  :bugs "Eh, what's up doc?")
+</code></pre>
+</div>
+
+</section>
+<section>
+
+<div class="org-src-container">
+
+<pre><code class="javascript">// Examples in JavaScript
+
+var catchphrases = {
+   peter: "Shut up, Meg!",
+   bart: "Don't have a cow, man!",
+   bugs: "Eh, what's up doc?"
+};
+
+catchphrases.bart;
+catchphrases["peter"];
+catchphrases.quagmire = "Giggity!";
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline28">
+<h4 id="orgheadline28">Sets</h4>
+<ul>
+<li>Unordered collections of unique items</li>
+<li>Similar to the mathematical sets</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Exercise: Let's Set it up!
+#{:1 "2" 3}
+#{:1 "2" 3 3 :1}
+#{:1 "2" 3}
+
+(require '[clojure.set :as set]
+(set/difference #{:1 :1 :unique})
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline29">
+<h4 id="orgheadline29">Namespaces</h4>
+<ul>
+<li>Clojure form which creates logical grouping of code</li>
+<li>Think Module Pattern in JavaScript, import statements in
+Python, or require in Rails</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">(ns my.cool.app)
+(def author "Homer")
+(defn get_author_name [] (println author))
+
+my.cool.app/homer ;; homer reference the symbol in the my.cool.app namespace
+
+(ns mainapp 
+    (:require [my.cool.app :as mca]
+              [another.library :as al]))
+
+(mca/get_author_name)
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline35">
+<h3 id="orgheadline35">Language Idioms</h3>
+<div class="outline-text-3" id="text-orgheadline35">
+</div></section>
+<section id="slide-orgheadline31">
+<h4 id="orgheadline31">Local Bindings</h4>
+<ul>
+<li>Allows for lexically scoped bindings between symbols and values</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Clojure
+
+;; Example of what goes where
+(let [lexical_binding value_to_bind])
+
+;; Exercise: Let it up!
+(let [name "Enter Your Name Here"] name)
+
+(let [a 46 b 2] (+ a b))
+
+;; A vector of coordinates [28 10 15]
+(defn coordinates [coll] 
+    (let [[x y z] coll]
+    (println "The coordinates are x:" x "y:" y "z:" z) ))
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline32">
+<h4 id="orgheadline32">Destructuring</h4>
+<ul>
+<li>Way to extract values from a data structure and bind them to
+symbol</li>
+<li>Convenient and elegant</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Exercise: Lets destructure things!
+(def catchphrases {:peter "Shut up, Meg!", 
+                   :bugs "Eh, what's up doc?", 
+                   :bart "Don't have a cow, man!", 
+                   :quagmire "Giggity!"})
+
+
+(let [{peter :peter bart :bart} catchphrases] (println peter bart))
+
+(let [{peter :peter bart :bart :as all} catchphrases] (println peter bart all))
+
+(let [{:keys [bugs quagmire]} catchphrases] (println bugs quagmire))
+</code></pre>
+</div>
+
+</section>
+<section>
+
+<div class="org-src-container">
+
+<pre><code class="python"># List destructuring in Python
+>>> foo = [1, 2, 3]
+>>> a, b, c = foo
+>>> a, b, c
+1 2 3
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class="javascript">// New destructuring feature in the lastest versions of JavaScript
+// ES2015 and ES7 Javascript destructuring
+[a, b] = [1, 2]
+[a, b, ...rest] = [1, 2, 3, 4, 5]
+{a, b} = {a:1, b:2}
+{a, b, ...rest} = {a:1, b:2, c:3, d:4}  //ES7
+</code></pre>
+</div>
+</section>
+<section id="slide-orgheadline33">
+<h4 id="orgheadline33">Lexical Closures</h4>
+<ul>
+<li>A function that returns another function</li>
+<li>The inner function normally closes (eg the name, closure) over a lexically scoped
+symbol from the parent function</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Exercise: Let's closure it up!
+
+;; Notice the anonymous function (fn) CLOSES over the var from the parent
+(defn multiply-by [num]
+    (fn [m] (* m num))) 
+
+(def mby5 (multiply-by 5))
+(def mby10 (multiply-by 10))
+
+(mby5 3)
+(mby10 7)
+</code></pre>
+</div>
+
+</section>
+<section>
+
+<div class="org-src-container">
+
+<pre><code class="javacsript">//JavaScript
+function multiplyBy(num) {
+
+   return function(m) {
+       return m * num;
+   };
+};
+
+var mby5 = multiplyBy(5)
+var mby10 = multiplyBy(10)
+
+&gt; mby5(3)
+15
+&gt; mby10(7)
+70
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline34">
+<h4 id="orgheadline34">Flow Control</h4>
+<ul>
+<li>Better known as conditional statements or expressions</li>
+<li>Allows for one or more expression evaluation depending on the
+form that's chosen</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">(if some-expression-is-true (then-do-this) (else-do-this))
+
+(if (odd? 29)
+    (println "Number is odd")
+    (println "Number is even"))
+
+
+(let [grade 85]
+   (cond 
+       (>= grade 90) "A"
+       (>= grade 80) "B"
+       (>= grade 70) "C"
+       (>= grade 60) "D"
+       :else "F"))
+</code></pre>
+</div>
+
+</section>
+<section>
+
+<div class="org-src-container">
+
+<pre><code class="javascript">//JavaScript
+if (some_condition_is_true) {
+    return this_thing;
+} else {
+    return that_thing;
+}
+
+//  We could also use a switch / case here
+var grade = 85
+if (grade >= 90) {
+   return "A"
+} 
+elseif (grade >= 80) {
+   return "B"
+}
+elseif (grade >= 70) {
+   return "C"
+}
+elseif (grade >= 60) {
+   return "D"
+} else {
+   return "F"
+}
+</code></pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline37">
+<h2 id="orgheadline37">Fin</h2>
+
+<div class="figure">
+<p><img src="http://i.imgur.com/4RGgamF.gif" alt="4RGgamF.gif" />
+</p>
+</div>
+
+<p>
+Thanks for listening
+</p>
+
+<p>
+Enjoy the pizza, beer and conversation
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: true,
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }]
+});
+</script>
+</body>
+</html>

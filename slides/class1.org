@@ -1,0 +1,642 @@
+#+OPTIONS: toc:nil num:nil
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_THEME: blood
+#+REVEAL_TRANS: concave
+#+REVEAL_PLUGINS: (highlight)
+#+REVEAL_EXTRA_CSS: http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/css/zenburn.css
+* Intro To ClojureScript Series
+  1. Getting Familiar with the Language
+     * Exploring with the REPL
+  2. Moving to the Browser
+     * Advanced Language Concepts
+     * Tools of the Trade
+     * JavaScript Interop
+  3. Going Deeper
+     * Atoms
+     * CLJS
+     * Ajax (Asynchronous Calls)
+  4. Single Page Applications
+     * Reagent
+     * Om Next
+** Working with the REPL
+*** REPL
+    * Read Eval Print Loop
+    * Allows us to run/evaluate code in our terminal
+    * lein repl
+    * planck
+
+    Online Clojure REPLs
+
+    http://clojurescript.net
+     
+    Command line ClojureScript REPL OSX
+
+    https://github.com/mfikes/planck
+    
+    brew install planck
+
+* Introduction
+** Me
+   * Adrian Martin
+   * Engineer at Point Slope
+   * Full Stack and DevOps
+   * Python/Ruby/Java/PHP/Clojure/Javascript
+
+** Point Slope
+[[./img/pointslope.png]]
+   * Web & Application Development
+   * Systems Architecture & Integration
+   * Work with enterprise & start ups 
+
+* Why ClojureScript
+
+  "Why are we doing this? Because Clojure rocks, and JavaScript reaches."
+
+  — Rich Hickey
+
+** What is ClojureScript?
+http://i.imgur.com/zl0hM3I.png
+
+   "ClojureScript is a compiler for Clojure that targets JavaScript.
+   It is designed to emit JavaScript code which is compatible with the
+   advanced compilation mode of the Google Closure optimizing
+   compiler."
+
+#+REVEAL: split
+
+http://i.imgur.com/e3E0YPX.gif
+** ClojureScript Language Features
+
+#+ATTR_REVEAL: :frag (roll-in)
+   * Immutability
+   * Rich data structures  
+   * Lazy Evaluation
+   * High Order Functions
+   * First-Class Functions
+   * Closures
+   * Recursion
+   * Macros
+   * REPL
+   * Destructuring
+
+#+REVEAL: split
+
+| I get that                     | I don't get that               |
+| http://i.imgur.com/3VI0Tyh.gif | http://i.imgur.com/lk32h2G.gif |
+     
+** Clojurescript vs Clojure
+http://i.imgur.com/99KXCBj.gif
+
+* ClojureScript: Language Basics
+** Jargon and Nomenclature
+*** Arity
+
+   * The number of arguments a functions accepts
+   * Similar to method overloading in other languages
+
+#+begin_src clojure
+;; Clojure
+(+)
+(+ 1)
+(+ 1 2)
+(+ 1 2 3)
+#+end_src
+
+*** Immutability & Persistent Data
+http://i.imgur.com/b1wTMoO.gif
+
+    * Immutable data can't change once it's created
+    * A new "updated" copy of the data is returned
+    * The new collection shares the structure of the original collection
+
+** Understanding the Syntax
+   ((((((((((((Don't Let These Scare You))))))))))))
+
+#+begin_src clojure
+;; Clojure function invocation
+()
+
+;; Example sytnax for all Clojure operations
+(operator operand-1 operand-2 ... operand-N)
+
+;; In other words
+(function-name argument1 argument2 argument3 ...)
+
+;; Example using "plus" function
+(+ 1 2)
+(+ 1 2 3)
+(+ 1 2 3 4)
+
+;; Inside Out Evaluation
+(+ 1 (* 4 (/ 10 2))) 
+(+ 1 (* 4 5)
+(+ 1 20)
+21
+#+end_src
+
+*** Functions
+    * Read function calls right to left ("inside out")
+      * Most of the time 
+
+#+begin_src c
+// Clojure use the list syntax for function invocation
+()
+// JavaScript
+function() {}
+
+(name arg)
+
+function name(arg) {}
+#+end_src 
+
+#+begin_src c
+// ClojureScript
+(defn my_band
+   "Some super cool doc string"
+   [band]
+   (println "My favorite band is" band))
+
+(my_band "TOOL")
+
+// JavaScript
+function my_band(band) {
+   return "My favorite band is " + band;
+}
+my_band("TOOL")
+#+end_src 
+
+#+REVEAL: split
+
+#+begin_src c
+//ClojureScript
+(def my_band (fn [band] (println "My favorite band is" band)))
+(my_band "TOOL")
+
+//JavaScript
+var my_band = function(band) {
+   return "My favorite band is " + band;
+}
+my_band("TOOL")
+#+end_src 
+
+#+begin_src c
+// ClojureScript
+((fn [band] (println "My favorite band is" band)) "TOOL")
+
+// JavaScript
+(function (band) {
+   return "My favorite band is " + band;
+})("TOOL");
+#+end_src 
+
+#+begin_src c
+//We pass anonymous functions as arguments all the time.
+// In JavaScript it's almost second nature
+$("div#a.open_something").on("click", function(event) {
+   event.preventDefault();
+   ...
+});
+#+end_src
+
+** Primitive Data Types
+http://i.imgur.com/3mDUMdH.gif
+*** Numbers
+    * Same as JavaScript numbers
+    * Can be integers or floating point numbers
+#+begin_src clojure
+1
+2000
+3.14
+-50
+-1.2e30
+x0000ff
+#+end_src
+
+#+begin_src clojure
+;; Exercise: Explore numbers in your REPL
+(+ 1 1)
+(- 8 4)
+(/ 10 20)
+(* 2 4)
+#+end_src
+*** Strings
+    * Entered as literals using double quotes
+#+begin_src clojure
+;; Exercise: Explore strings in your REPL
+"foo"
+(str "homer")
+(str 42)
+(println "I'm a string")
+
+(require '[clojure.string :as s])
+(s/join " " ["Let's" "make" "a" "sentence!"])
+"Let's make a sentence!"
+#+end_src
+*** Characters
+    * JavaScript does not have a character type
+    * ClojuresScript characters are implemented as single character strings
+#+begin_src clojure
+\a
+\b
+\c
+(println \x)
+(println \y)
+(println \z)
+#+end_src
+*** Boolean
+    * Always true or false
+    * Logical false in ClojureScript is different tha JavaScript
+      * nil
+      * false
+      * (js/undefined)
+    * Everything else is "truthy"
+ 
+#+REVEAL: split
+
+| Condition    | JavaScript | ClojureScript |
+|--------------+------------+---------------|
+| false        | false      | false         |
+| nil/null     | false      | false         |
+| js/undefined | false      | false         |
+| []           | true       | true          |
+| true         | true       | true          |
+| 0            | false      | true          |
+| ""           | false      | true          |
+| js/NaN       | false      | true          |
+
+#+REVEAL: split
+
+#+begin_src clojure
+;; Exercise: Lets explore the values for these conditionals
+
+(if false :true :false)
+(if nil :true :false)
+(if js/undefined :true :false)
+(if [] :true :false)
+(if 0 :true :false)
+(if "" :true :false)
+(if js/NaN :true :false)
+#+end_src
+
+*** Nil
+    * Same as null in JavaScript
+    * Logically absent, empty, meaningless
+    * ClojureScript does not use "undefined" like you'll find in
+      JavaScript
+#+begin_src clojure
+nil
+(println) ;; Always prints and returns nil
+(nil? "foo") ;; Check if argument is nil
+#+end_src
+
+*** Vars
+    * Evaluate to other values
+    * Most closely aligned to "var" in JavaScript
+    * Can be namespaced qualified
+    * Can resolve to functions
+
+#+begin_src clojure
+map
++
+set!
+(defn my_var [])
+(def my_var "it's a var!")
+#+end_src
+
+#+begin_src javacsript
+var my_var = []
+var my_var_func = function() {}
+#+end_src
+
+*** Keywords
+    * Similar to strings
+    * Keywords are normally used as keys in maps, enumerated values,
+      or constants
+    * Can be namespace qualified
+
+#+begin_src clojure
+:keyword
+:my_namespaced/keyword
+::keyword
+
+;; Most common use case for keywords in ClojureScript
+{:key "value" :another-key "another value"}
+
+;; Keywords in other languages
+var stuff = {key: "value", another-key: "another value"} ;; JavaScript
+hashmap = {:key => "value" :another-key => "another value"} ;; Ruby
+dictionary = {"key": "value", "another-key": "another value"} ;; Python
+#+end_src
+
+#+REVEAL: split
+
+#+begin_src clojure
+;; Exercise: Lets write some keywords!
+:my-cool-keyword
+:my_namespaced/something
+::neato
+
+(def this :that)
+(def duos {:rick "morty" :ren "stimpy" :bert "ernie"})
+
+#+end_src
+
+** Data Structures
+   "It is better to have 100 functions operate on one data structure than
+   10 functions on 10 data structures."
+
+   -Alan Perlis
+*** Collections
+    * Can contain primitive types or other collections
+    * Grouping of N number of items which can  be operated upon in
+      some way
+    * Collections Types 
+      * lists
+      * sets
+      * vectors
+      * maps
+    * Collections which contain the above guarantee
+      * Equality
+      * Serializability
+      * Clojure compatibility
+
+*** Lists
+    * Ordered collection of items
+    * In Clojure lists also indicate a form to be evaluated
+
+#+begin_src clojure
+'(1 "two" [:3])
+'(:fee :fi :fo :fum)
+(list :fee :fi :fo :fum)
+#+end_src
+
+#+begin_src clojure
+;; Exercise: Let's list it up!
+'(1 "two" [:3])
+'(:fee :fi :fo :fum)
+(list :fee :fi :fo :fum)
+(:fee :fi :fo :fum)
+
+;; Conj method will always prepend value to list
+(conj '(:fi :fo :fum) :fee)
+
+(def animals '(:cat :dog :bird))
+
+(first animals)
+(second animals)
+(last animals)
+(nth animals 1)
+#+end_src
+
+*** Vectors
+    * Ordered collection of items
+    * Similar equivalence to arrays in JavaScript and other languages
+    * Can be invoked as a function
+
+#+begin_src clojure
+[1 "two" '(:3)]
+[:fee :fi :fo :fum]
+(vector :fee :fi :fo :fum)
+(vec '(:fee :fi :fo :fum))
+#+end_src
+
+#+begin_src clojure
+;; Exercise: Let's vector it up!
+[1 "two" '(:3)]
+[:fee :fi :fo :fum]
+(vector :fee :fi :fo :fum)
+(vec '(:fee :fi :fo :fum))
+(nth [:fee :fi :fo :fum] 2)
+
+;; Define a vector in your REPL (hint - def macro)
+;; Get the "first" "second" "last" and 1st index value of the vector
+#+end_src
+
+*** Maps
+    * Associative collections utilizing key value pairs
+    * AKA: Dictionaries, Hash Map, Hashes, Associative Array
+    * Keys can be any data type or even other data structures
+
+#+begin_src clojure
+;; Exercise: Let's Map it!
+
+{:peter "Shut up, Meg!" 
+ :mr-burns "Eeeexcellent!" 
+ :bugs "Eh, what's up doc?"}
+
+(def catchphrases {:peter "Shut up, Meg!" 
+                   :mr-burns "Eeeexcellent!" 
+                   :quagmire "Giggity!"})
+
+(catchphrases :bart)
+(:peter catchphrases)
+(get catchphrases :quagmire)
+(assoc catchphrases  :bugs "Eh, what's up doc?")
+#+end_src
+
+#+REVEAL: split
+
+#+begin_src javascript
+// Examples in JavaScript
+
+var catchphrases = {
+   peter: "Shut up, Meg!",
+   bart: "Don't have a cow, man!",
+   bugs: "Eh, what's up doc?"
+};
+
+catchphrases.bart;
+catchphrases["peter"];
+catchphrases.quagmire = "Giggity!";
+#+end_src
+
+*** Sets
+    * Unordered collections of unique items
+    * Similar to the mathematical sets
+
+#+begin_src clojure
+;; Exercise: Let's Set it up!
+#{:1 "2" 3}
+#{:1 "2" 3 3 :1}
+#{:1 "2" 3}
+
+(require '[clojure.set :as set]
+(set/difference #{:1 :1 :unique})
+#+end_src
+
+*** Namespaces
+    * Clojure form which creates logical grouping of code
+    * Think Module Pattern in JavaScript, import statements in
+      Python, or require in Rails
+
+#+begin_src clojure
+(ns my.cool.app)
+(def author "Homer")
+(defn get_author_name [] (println author))
+
+my.cool.app/homer ;; homer reference the symbol in the my.cool.app namespace
+ 
+(ns mainapp 
+    (:require [my.cool.app :as mca]
+              [another.library :as al]))
+
+(mca/get_author_name)
+#+end_src
+
+** Language Idioms
+*** Local Bindings
+    * Allows for lexically scoped bindings between symbols and values
+
+#+begin_src clojure
+;; Clojure
+
+;; Example of what goes where
+(let [lexical_binding value_to_bind])
+
+;; Exercise: Let it up!
+(let [name "Enter Your Name Here"] name)
+
+(let [a 46 b 2] (+ a b))
+
+;; A vector of coordinates [28 10 15]
+(defn coordinates [coll] 
+    (let [[x y z] coll]
+    (println "The coordinates are x:" x "y:" y "z:" z) ))
+#+end_src
+
+*** Destructuring
+    * Way to extract values from a data structure and bind them to
+      symbol
+    * Convenient and elegant
+
+#+begin_src clojure
+;; Exercise: Lets destructure things!
+(def catchphrases {:peter "Shut up, Meg!", 
+                   :bugs "Eh, what's up doc?", 
+                   :bart "Don't have a cow, man!", 
+                   :quagmire "Giggity!"})
+
+
+(let [{peter :peter bart :bart} catchphrases] (println peter bart))
+
+(let [{peter :peter bart :bart :as all} catchphrases] (println peter bart all))
+
+(let [{:keys [bugs quagmire]} catchphrases] (println bugs quagmire))
+
+#+end_src
+
+#+REVEAL: split
+
+#+begin_src python
+# List destructuring in Python
+>>> foo = [1, 2, 3]
+>>> a, b, c = foo
+>>> a, b, c
+1 2 3
+#+end_src
+
+#+begin_src javascript
+// New destructuring feature in the lastest versions of JavaScript
+// ES2015 and ES7 Javascript destructuring
+[a, b] = [1, 2]
+[a, b, ...rest] = [1, 2, 3, 4, 5]
+{a, b} = {a:1, b:2}
+{a, b, ...rest} = {a:1, b:2, c:3, d:4}  //ES7
+#+end_src
+*** Lexical Closures
+    * A function that returns another function
+    * The inner function normally closes (eg the name, closure) over a lexically scoped
+      symbol from the parent function
+
+#+begin_src clojure
+;; Exercise: Let's closure it up!
+
+;; Notice the anonymous function (fn) CLOSES over the var from the parent
+(defn multiply-by [num]
+    (fn [m] (* m num))) 
+
+(def mby5 (multiply-by 5))
+(def mby10 (multiply-by 10))
+
+(mby5 3)
+(mby10 7)
+#+end_src
+
+#+REVEAL: split
+
+#+begin_src javacsript
+//JavaScript
+function multiplyBy(num) {
+
+   return function(m) {
+       return m * num;
+   };
+};
+
+var mby5 = multiplyBy(5)
+var mby10 = multiplyBy(10)
+
+> mby5(3)
+15
+> mby10(7)
+70
+#+end_src
+
+*** Flow Control
+    * Better known as conditional statements or expressions
+    * Allows for one or more expression evaluation depending on the
+      form that's chosen
+
+#+begin_src clojure
+(if some-expression-is-true (then-do-this) (else-do-this))
+
+(if (odd? 29)
+    (println "Number is odd")
+    (println "Number is even"))
+
+
+(let [grade 85]
+   (cond 
+       (>= grade 90) "A"
+       (>= grade 80) "B"
+       (>= grade 70) "C"
+       (>= grade 60) "D"
+       :else "F"))
+
+#+end_src
+
+#+REVEAL: split
+
+#+begin_src javascript
+//JavaScript
+if (some_condition_is_true) {
+    return this_thing;
+} else {
+    return that_thing;
+}
+
+//  We could also use a switch / case here
+var grade = 85
+if (grade >= 90) {
+   return "A"
+} 
+elseif (grade >= 80) {
+   return "B"
+}
+elseif (grade >= 70) {
+   return "C"
+}
+elseif (grade >= 60) {
+   return "D"
+} else {
+   return "F"
+}
+#+end_src
+
+* Fin
+http://i.imgur.com/4RGgamF.gif
+
+  Thanks for listening
+
+  Enjoy the pizza, beer and conversation
+
