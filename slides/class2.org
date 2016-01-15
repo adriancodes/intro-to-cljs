@@ -1,0 +1,190 @@
+#+OPTIONS: toc:nil num:nil
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_THEME: blood
+#+REVEAL_TRANS: concave
+#+REVEAL_PLUGINS: (highlight)
+#+REVEAL_EXTRA_CSS: http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/css/zenburn.css
+* Intro To ClojureScript Series
+  1. Getting Familiar with the Language
+     * Exploring with the REPL
+  2. Moving to the Browser
+     * Advanced Language Concepts
+     * Tools of the Trade
+     * JavaScript Interop
+  3. Going Deeper
+     * Atoms
+     * CLJS
+     * Ajax (Asynchronous Calls)
+  4. Single Page Applications
+     * Reagent
+     * Om Next
+** Working with the REPL
+*** REPL
+    * Read Eval Print Loop
+    * Allows us to run/evaluate code in our terminal
+    * lein repl
+    * planck
+
+    Online Clojure REPLs
+
+    http://clojurescript.net
+     
+    Command line ClojureScript REPL OSX
+
+    https://github.com/mfikes/planck
+    
+    brew install planck
+
+* Introduction
+** Me
+   * Adrian Martin
+   * Engineer at Point Slope
+   * Full Stack and DevOps
+   * Python/Ruby/Java/PHP/Clojure/Javascript
+
+** Point Slope
+[[./img/pointslope.png]]
+   * Web & Application Development
+   * Systems Architecture & Integration
+   * Work with enterprise & start ups 
+
+* Second Class
+** JavaScript Interop
+#+ATTR_REVEAL: :frag (roll-in)
+    * ClojureScript is designed to mirror the semantics of JavaScript as closely as possible
+    * JavaScript has no concept of namespaces
+    * ClosjureScript provides access to the JavaScript global
+       namespace via the 'js' namespace
+    * ClojureScript can directly access the fields and methods on JavaScript
+       objects
+** JavaScript Interop Examples 
+#+begin_src clojure
+;; Clojure uses 'js' namespace to access the global JavaScript variables and functions
+(js/somefunction)
+
+;; Syntax to access a method of the target
+(.method-name target arguments ... )
+
+;; How to access console log
+(.log js/console "Hello from ClojureScript")
+
+;; Syntax to access a property of the target
+(.-property target arguments ...)
+
+(set! (.-title js/document) "Welcome to ClojureScript")
+
+;; Some examples of the functions in ClojureScript and the JavaScript equivalence
+(js/alert "hello world!")
+alert("hello world") 
+
+(. js/document getElementById "someID")
+document.getElementbyid("someID")
+
+(.log js/console "Hello World")
+console.log("Hello World")
+
+(set! (.-innerHTML (.item (. js/document getElementbyid "someID") 0) "New inner text")) 
+document.getElementbyid("someID")[0].innerHTML = "New inner html"
+#+end_src 
+
+** Clojurescript: Compilation Process
+*** About Google Closure Compiler
+    * Compiles JavaScript to Optimized JavaScript
+    * Removes dead code, rewrites and minimizes what's left
+    * Munges variables and properties (can be limited)
+    * Three settings which determine the level of optimization
+      * :whitespace_only
+      * :standard
+      * :advanaced
+    * This step is optional but recommended for production
+
+** Clojurescript: Tools of the Trade
+*** Stack Comparison
+    * Modern JavaScript stack includes:
+      * Grunt
+      * Gulp
+      * Bower
+      * npm
+      * Webpack
+      * Babel.js
+      * Yeoman
+    * ClojureScript
+      * Editor (ie Emacs, Intellij, Atom, Light Table)
+      * leiningen
+        * figwheel
+
+*** Leiningen
+    * Clojure project generator
+    * brew install leinengen
+    
+    lein new app my-cool-app    
+
+*** Figwheel
+    * Leiningen plugin that pushes ClojureScript code changes to the
+      client
+    * https://github.com/bhauman/lein-figwheel
+
+    lein new figwheel my-new-app
+
+*** CLJS
+    * Easy way to package external JavaScript libraries and use them
+      from within ClojureScript
+    * Handles munging issue with the advanced setting of the Google
+      Clojsure Compiler
+    * http://cljsjs.github.io/
+
+** Clojurescript: Your First App
+*** Starting a New Project
+#+begin_src bash
+$ lein new figwheel my-app
+$ cd my-app
+#+end_src
+
+*** Project Skeleton
+#+begin_src bash
+.
+├── README.md
+├── project.clj
+├── resources
+│   └── public
+│       ├── css
+│       │   └── style.css
+│       └── index.html
+└── src
+    └── my_app
+        └── core.cljs
+#+end_src
+
+*** Running Your App
+#+begin_src bash
+$ lein figwheel
+
+Figwheel: Starting server at http://localhost:3449
+Figwheel: Watching build - dev
+Compiling "resources/public/js/compiled/my_app.js" from ["src"]...
+Successfully compiled "resources/public/js/compiled/my_app.js" in 6.957 seconds.
+Figwheel: Starting CSS Watcher for paths  ["resources/public/css"]
+Launching ClojureScript REPL for build: dev
+Figwheel Controls:
+          (stop-autobuild)                ;; stops Figwheel autobuilder
+          (start-autobuild [id ...])      ;; starts autobuilder focused on optional ids
+          (switch-to-build id ...)        ;; switches autobuilder to different build
+          (reset-autobuild)               ;; stops, cleans, and starts autobuilder
+          (reload-config)                 ;; reloads build config and resets autobuild
+          (build-once [id ...])           ;; builds source one time
+          (clean-builds [id ..])          ;; deletes compiled cljs target files
+          (print-config [id ...])         ;; prints out build configurations
+          (fig-status)                    ;; displays current state of system
+  Switch REPL build focus:
+          :cljs/quit                      ;; allows you to switch REPL to another build
+    Docs: (doc function-name-here)
+    Exit: Control+C or :cljs/quit
+ Results: Stored in vars *1, *2, *3, *e holds last exception object
+Prompt will show when Figwheel connects to your application
+To quit, type: :cljs/quit
+cljs.user=>
+
+#+end_src
+
+
+
