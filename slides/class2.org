@@ -49,18 +49,212 @@
    * Work with enterprise & start ups 
 
 * Second Class
+** Brief Refresher
+*** ClojureScript Language Features
+
+#+ATTR_REVEAL: :frag (roll-in)
+   * Immutability
+   * Rich data structures  
+   * Lazy Evaluation
+   * High Order Functions
+   * First-Class Functions
+   * Closures
+   * Recursion
+   * Macros
+   * REPL
+   * Destructuring
+
+*** Data Types
+NUMBERS
+#+begin_src clojure
+1
+3.14
+x0000ff
+#+end_src
+STRINGS
+#+begin_src clojure
+"foo"
+(str "bar")
+#+end_src
+CHARACTERS
+#+begin_src clojure
+\a
+\b
+\c
+#+end_src
+
+#+REVEAL: split
+BOOLEAN
+| Condition    | JavaScript | ClojureScript |
+|--------------+------------+---------------|
+| false        | false      | false         |
+| nil/null     | false      | false         |
+| js/undefined | false      | false         |
+| []           | true       | true          |
+| true         | true       | true          |
+| 0            | false      | true          |
+| ""           | false      | true          |
+| js/NaN       | false      | true          |
+#+REVEAL: split
+NIL
+#+begin_src clojure
+nil ;; Same as Javascript null
+(nil? "foo") ;; Check if argument is nil
+#+end_src
+VARS
+#+begin_src clojure
+map
++
+set!
+(defn my_var [])
+(def my_var "it's a var!")
+#+end_src
+KEYWORDS
+#+begin_src clojure
+:keyword
+:my_namespaced/keyword
+::keyword
+#+end_src
+*** Data Structures
+LISTS
+#+begin_src clojure
+;; Ordered Collection
+'(1 "two" [:3])
+'(:fee :fi :fo :fum)
+(list :fee :fi :fo :fum)
+#+end_src
+VECTORS
+#+begin_src clojure
+;; Ordered Collection
+[1 "two" '(:3)]
+[:fee :fi :fo :fum]
+(vector :fee :fi :fo :fum)
+(vec '(:fee :fi :fo :fum))
+#+end_src
+MAPS
+#+begin_src clojure
+;; Unordered Collection
+{:foo "bar" :fizz "buzz"}
+
+(hash-map :foo "bar" :fizz "buzz")
+#+end_src
+SETS
+#+begin_src clojure
+;; Unordered Collection
+;; Exercise: Let's Set it up!
+#{:1 "2" 3}
+#{:1 "2" 3 3 :1}
+#{:1 "2" 3}
+#+end_src
+*** Macros  
+    * Lets you specify some transformation of your code
+    * Way of reducing boilerplate code
+    * Extend language functionality by creating new semantic constructs
+    * Not available at runtime, only at compile.
+    * Should be used sparingly
+#+REVEAL: split
+
+#+begin_src clojure
+;; Example macro 
+(defmacro when
+  "Evaluates test. If logical true, evaluates body in an implicit do."
+  {:added "1.0"}
+  [test & body]
+  (list 'if test (cons 'do body)))
+
+;; Example usage
+(when (some-condition-is-true) (println "Its true") (do-something-else))
+
+;; (macroexpand (when (some-condition-is-true) (println "Its true") (do-something-else)))
+(if (some-condition-is-true)
+   (do 
+    (println "Its true") 
+    (do-something-else)))
+
+#+end_src
+
+*** Atoms
+    * One of four reference types
+    * Provide a way to manage shared state
+    * Bound to a single storage location where mutation can take place
+    * Can mutate atom by using methods like swap! and reset!
+#+begin_src clojure
+;; Example atom
+(def app-state (atom {}) 
+
+;; Mutate state
+(swap! app-state assoc-in [:foo] "bar")
+
+;; Dereference
+(:foo @app-state)
+#+end_src
+** Clojurescript: Tools of the Trade
+*** Stack Comparison
+    * Modern JavaScript stack includes:
+      * Editor
+      * Grunt
+      * Gulp
+      * Bower
+      * npm
+      * Webpack
+      * Babel.js
+      * Yeoman
+    * ClojureScript
+      * Editor
+      * Leiningen
+        * Leinengen plugin (ie. figwheel, cljs-build)
+*** Leiningen
+    Clojure Project Automation
+#+ATTR_REVEAL: :frag (roll-in)
+    * create new projects
+    * fetch dependencies for your project
+    * run tests
+    * run a fully-configured REPL
+    * compile Java sources (if any)
+    * run the project (if the project isn't a library)
+    * generate a maven-style "pom" file for the project for interop
+    * compile and package projects for deployment
+    * publish libraries to repositories such as Clojars
+    * run custom automation tasks written in Clojure (leiningen
+      plug-ins)
+
+*** Leinengen Plugins
+    https://github.com/technomancy/leiningen/wiki/Plugins
+    * lein-cljsbuild
+    * lein-figwheel
+*** CLJS
+    * Easy way to package external JavaScript libraries and use them
+      from within ClojureScript
+    * Handles munging issue with the advanced setting of the Google
+      Closure Compiler
+    * http://cljsjs.github.io/
+*** Single Page Applications
+    Interfaces for ReactJS
+    * Reagent
+    * Om / Om Next
+** Clojurescript: Compilation Process
+*** About Google Closure Compiler
+#+ATTR_REVEAL: :frag (roll-in)
+    * Compiles JavaScript to Optimized JavaScript
+    * Removes dead code, rewrites and minimizes what's left
+    * Munges variables and properties (can be limited)
+    * Three settings which determine the level of optimization
+      * :whitespace_only
+      * :standard
+      * :advanaced
+    * This step is optional but recommended for production
+
 ** JavaScript Interop
 #+ATTR_REVEAL: :frag (roll-in)
-    * ClojureScript is designed to mirror the semantics of JavaScript as closely as possible
-    * JavaScript has no concept of namespaces
     * ClosjureScript provides access to the JavaScript global
        namespace via the 'js' namespace
     * ClojureScript can directly access the fields and methods on JavaScript
        objects
+    * ClojureScript is designed to mirror the semantics of JavaScript as closely as possible
 ** JavaScript Interop Examples 
 #+begin_src clojure
 ;; Clojure uses 'js' namespace to access the global JavaScript variables and functions
-(js/somefunction)
+(js/somefunction target)
 
 ;; Syntax to access a method of the target
 (.method-name target arguments ... )
@@ -73,73 +267,37 @@
 
 (set! (.-title js/document) "Welcome to ClojureScript")
 
+(aget (.-innerHTML (.getElementById js/document "#some-div")))
+#+end_src
+
+#+REVEAL: split
+
+#+begin_src clojure
 ;; Some examples of the functions in ClojureScript and the JavaScript equivalence
-(js/alert "hello world!")
-alert("hello world") 
+(js/alert "hello world!") ;; ClojureScript
+alert("hello world") ;; JavaScript
 
-(. js/document getElementById "someID")
-document.getElementbyid("someID")
 
-(.log js/console "Hello World")
-console.log("Hello World")
+(. js/document getElementById "someID")  ;; ClojureScript
+(.getElementByID js/document "someID") ;; ClojureScript
+(js/document.getElementbyid "someID") ;; ClojureScript
+
+document.getElementbyid("someID") ;; JavaScript
+
+(.log js/console "Hello World") ;; ClojureScript
+(js/console.log "Hello World") ;; ClojureScript
+console.log("Hello World") ;; JavaScript
 
 (set! (.-innerHTML (.item (. js/document getElementbyid "someID") 0) "New inner text")) 
 document.getElementbyid("someID")[0].innerHTML = "New inner html"
 #+end_src 
 
-** Clojurescript: Compilation Process
-*** About Google Closure Compiler
-    * Compiles JavaScript to Optimized JavaScript
-    * Removes dead code, rewrites and minimizes what's left
-    * Munges variables and properties (can be limited)
-    * Three settings which determine the level of optimization
-      * :whitespace_only
-      * :standard
-      * :advanaced
-    * This step is optional but recommended for production
-
-** Clojurescript: Tools of the Trade
-*** Stack Comparison
-    * Modern JavaScript stack includes:
-      * Grunt
-      * Gulp
-      * Bower
-      * npm
-      * Webpack
-      * Babel.js
-      * Yeoman
-    * ClojureScript
-      * Editor (ie Emacs, Intellij, Atom, Light Table)
-      * leiningen
-        * figwheel
-
-*** Leiningen
-    * Clojure project generator
-    * brew install leinengen
-    
-    lein new app my-cool-app    
-
-*** Figwheel
-    * Leiningen plugin that pushes ClojureScript code changes to the
-      client
-    * https://github.com/bhauman/lein-figwheel
-
-    lein new figwheel my-new-app
-
-*** CLJS
-    * Easy way to package external JavaScript libraries and use them
-      from within ClojureScript
-    * Handles munging issue with the advanced setting of the Google
-      Clojsure Compiler
-    * http://cljsjs.github.io/
-
 ** Clojurescript: Your First App
 *** Starting a New Project
 #+begin_src bash
-$ lein new figwheel my-app
-$ cd my-app
+$ lein new figwheel clj-miami -- --reagent
+$ cd clj-miami
 #+end_src
-
 *** Project Skeleton
 #+begin_src bash
 .
@@ -151,7 +309,7 @@ $ cd my-app
 │       │   └── style.css
 │       └── index.html
 └── src
-    └── my_app
+    └── clj_miami
         └── core.cljs
 #+end_src
 
@@ -161,8 +319,8 @@ $ lein figwheel
 
 Figwheel: Starting server at http://localhost:3449
 Figwheel: Watching build - dev
-Compiling "resources/public/js/compiled/my_app.js" from ["src"]...
-Successfully compiled "resources/public/js/compiled/my_app.js" in 6.957 seconds.
+Compiling "resources/public/js/compiled/clj_miami.js" from ["src"]...
+Successfully compiled "resources/public/js/compiled/clj_miami.js" in 6.957 seconds.
 Figwheel: Starting CSS Watcher for paths  ["resources/public/css"]
 Launching ClojureScript REPL for build: dev
 Figwheel Controls:
@@ -182,8 +340,7 @@ Figwheel Controls:
  Results: Stored in vars *1, *2, *3, *e holds last exception object
 Prompt will show when Figwheel connects to your application
 To quit, type: :cljs/quit
-cljs.user=>
-
+cljs.user=> (js/alert "hello world!")
 #+end_src
 
 

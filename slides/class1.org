@@ -220,7 +220,7 @@ x0000ff
 (* 2 4)
 #+end_src
 *** Strings
-    * Entered as literals using double quotes
+    + Entered as literals using double quotes
 #+begin_src clojure
 ;; Exercise: Explore strings in your REPL
 "foo"

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title></title>
+<meta name="author" content="(Adrian Martin)"/>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/blood.css" id="theme"/>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/css/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1></h1>
+<h2>Adrian Martin</h2>
+<h2><a href="mailto:adrian@pointslope">adrian@pointslope</a></h2>
+<h2></h2>
+</section>
+<section>
+<section id="slide-orgheadline3">
+<h2 id="orgheadline3">Intro To ClojureScript Series</h2>
+<ol>
+<li>Getting Familiar with the Language
+<ul>
+<li>Exploring with the REPL</li>
+
+</ul></li>
+<li>Moving to the Browser
+<ul>
+<li>Advanced Language Concepts</li>
+<li>Tools of the Trade</li>
+<li>JavaScript Interop</li>
+
+</ul></li>
+<li>Going Deeper
+<ul>
+<li>Atoms</li>
+<li>CLJS</li>
+<li>Ajax (Asynchronous Calls)</li>
+
+</ul></li>
+<li>Single Page Applications
+<ul>
+<li>Reagent</li>
+<li>Om Next</li>
+
+</ul></li>
+
+</ol>
+</section>
+<section id="slide-orgheadline2">
+<h3 id="orgheadline2">Working with the REPL</h3>
+<div class="outline-text-3" id="text-orgheadline2">
+</div></section>
+<section id="slide-orgheadline1">
+<h4 id="orgheadline1">REPL</h4>
+<ul>
+<li>Read Eval Print Loop</li>
+<li>Allows us to run/evaluate code in our terminal</li>
+<li>lein repl</li>
+<li>planck</li>
+
+</ul>
+
+<p>
+Online Clojure REPLs
+</p>
+
+<p>
+<a href="http://clojurescript.net/">http://clojurescript.net/</a>
+</p>
+
+<p>
+Command line ClojureScript REPL OSX
+</p>
+
+<p>
+<a href="https://github.com/mfikes/planck">https://github.com/mfikes/planck</a>
+</p>
+
+<p>
+brew install planck
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline6">
+<h2 id="orgheadline6">Introduction</h2>
+<div class="outline-text-2" id="text-orgheadline6">
+</div></section>
+<section id="slide-orgheadline4">
+<h3 id="orgheadline4">Me</h3>
+<ul>
+<li>Adrian Martin</li>
+<li>Engineer at Point Slope</li>
+<li>Full Stack and DevOps</li>
+<li>Python/Ruby/Java/PHP/Clojure/Javascript</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline5">
+<h3 id="orgheadline5">Point Slope</h3>
+
+<div class="figure">
+<p><img src="./img/pointslope.png" alt="pointslope.png" />
+</p>
+</div>
+<ul>
+<li>Web &amp; Application Development</li>
+<li>Systems Architecture &amp; Integration</li>
+<li>Work with enterprise &amp; start ups</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline27">
+<h2 id="orgheadline27">Second Class</h2>
+<div class="outline-text-2" id="text-orgheadline27">
+</div></section>
+<section id="slide-orgheadline12">
+<h3 id="orgheadline12">Brief Refresher</h3>
+<div class="outline-text-3" id="text-orgheadline12">
+</div></section>
+<section id="slide-orgheadline7">
+<h4 id="orgheadline7">ClojureScript Language Features</h4>
+<ul>
+<li class="fragment roll-in">Immutability</li>
+<li class="fragment roll-in">Rich data structures</li>
+<li class="fragment roll-in">Lazy Evaluation</li>
+<li class="fragment roll-in">High Order Functions</li>
+<li class="fragment roll-in">First-Class Functions</li>
+<li class="fragment roll-in">Closures</li>
+<li class="fragment roll-in">Recursion</li>
+<li class="fragment roll-in">Macros</li>
+<li class="fragment roll-in">REPL</li>
+<li class="fragment roll-in">Destructuring</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline8">
+<h4 id="orgheadline8">Data Types</h4>
+<p>
+NUMBERS
+</p>
+<div class="org-src-container">
+
+<pre><code class="clojure">1
+3.14
+x0000ff
+</code></pre>
+</div>
+<p>
+STRINGS
+</p>
+<div class="org-src-container">
+
+<pre><code class="clojure">"foo"
+(str "bar")
+</code></pre>
+</div>
+<p>
+CHARACTERS
+</p>
+<div class="org-src-container">
+
+<pre><code class="clojure">\a
+\b
+\c
+</code></pre>
+</div>
+
+</section>
+<section>
+<p>
+BOOLEAN
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Condition</th>
+<th scope="col" class="org-left">JavaScript</th>
+<th scope="col" class="org-left">ClojureScript</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">false</td>
+<td class="org-left">false</td>
+<td class="org-left">false</td>
+</tr>
+
+<tr>
+<td class="org-left">nil/null</td>
+<td class="org-left">false</td>
+<td class="org-left">false</td>
+</tr>
+
+<tr>
+<td class="org-left">js/undefined</td>
+<td class="org-left">false</td>
+<td class="org-left">false</td>
+</tr>
+
+<tr>
+<td class="org-left">[]</td>
+<td class="org-left">true</td>
+<td class="org-left">true</td>
+</tr>
+
+<tr>
+<td class="org-left">true</td>
+<td class="org-left">true</td>
+<td class="org-left">true</td>
+</tr>
+
+<tr>
+<td class="org-left">0</td>
+<td class="org-left">false</td>
+<td class="org-left">true</td>
+</tr>
+
+<tr>
+<td class="org-left">""</td>
+<td class="org-left">false</td>
+<td class="org-left">true</td>
+</tr>
+
+<tr>
+<td class="org-left">js/NaN</td>
+<td class="org-left">false</td>
+<td class="org-left">true</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<p>
+NIL
+</p>
+<div class="org-src-container">
+
+<pre><code class="clojure">nil ;; Same as Javascript null
+(nil? "foo") ;; Check if argument is nil
+</code></pre>
+</div>
+<p>
+VARS
+</p>
+<div class="org-src-container">
+
+<pre><code class="clojure">map
++
+set!
+(defn my_var [])
+(def my_var "it's a var!")
+</code></pre>
+</div>
+<p>
+KEYWORDS
+</p>
+<div class="org-src-container">
+
+<pre><code class="clojure">:keyword
+:my_namespaced/keyword
+::keyword
+</code></pre>
+</div>
+</section>
+<section id="slide-orgheadline9">
+<h4 id="orgheadline9">Data Structures</h4>
+<p>
+LISTS
+</p>
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Ordered Collection
+'(1 "two" [:3])
+'(:fee :fi :fo :fum)
+(list :fee :fi :fo :fum)
+</code></pre>
+</div>
+<p>
+VECTORS
+</p>
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Ordered Collection
+[1 "two" '(:3)]
+[:fee :fi :fo :fum]
+(vector :fee :fi :fo :fum)
+(vec '(:fee :fi :fo :fum))
+</code></pre>
+</div>
+<p>
+MAPS
+</p>
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Unordered Collection
+{:foo "bar" :fizz "buzz"}
+
+(hash-map :foo "bar" :fizz "buzz")
+</code></pre>
+</div>
+<p>
+SETS
+</p>
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Unordered Collection
+;; Exercise: Let's Set it up!
+#{:1 "2" 3}
+#{:1 "2" 3 3 :1}
+#{:1 "2" 3}
+</code></pre>
+</div>
+</section>
+<section id="slide-orgheadline10">
+<h4 id="orgheadline10">Macros</h4>
+<ul>
+<li>Lets you specify some transformation of your code</li>
+<li>Way of reducing boilerplate code</li>
+<li>Extend language functionality by creating new semantic constructs</li>
+<li>Not available at runtime, only at compile.</li>
+<li>Should be used sparingly</li>
+
+</ul>
+</section>
+<section>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Example macro 
+(defmacro when
+  "Evaluates test. If logical true, evaluates body in an implicit do."
+  {:added "1.0"}
+  [test & body]
+  (list 'if test (cons 'do body)))
+
+;; Example usage
+(when (some-condition-is-true) (println "Its true") (do-something-else))
+
+;; (macroexpand (when (some-condition-is-true) (println "Its true") (do-something-else)))
+(if (some-condition-is-true)
+   (do 
+    (println "Its true") 
+    (do-something-else)))
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline11">
+<h4 id="orgheadline11">Atoms</h4>
+<ul>
+<li>One of four reference types</li>
+<li>Provide a way to manage shared state</li>
+<li>Bound to a single storage location where mutation can take place</li>
+<li>Can mutate atom by using methods like swap! and reset!</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Example atom
+(def app-state (atom {}) 
+
+;; Mutate state
+(swap! app-state assoc-in [:foo] "bar")
+
+;; Dereference
+(:foo @app-state)
+</code></pre>
+</div>
+</section>
+<section id="slide-orgheadline18">
+<h3 id="orgheadline18">Clojurescript: Tools of the Trade</h3>
+<div class="outline-text-3" id="text-orgheadline18">
+</div></section>
+<section id="slide-orgheadline13">
+<h4 id="orgheadline13">Stack Comparison</h4>
+<ul>
+<li>Modern JavaScript stack includes:
+<ul>
+<li>Editor</li>
+<li>Grunt</li>
+<li>Gulp</li>
+<li>Bower</li>
+<li>npm</li>
+<li>Webpack</li>
+<li>Babel.js</li>
+<li>Yeoman</li>
+
+</ul></li>
+<li>ClojureScript
+<ul>
+<li>Editor</li>
+<li>Leiningen
+<ul>
+<li>Leinengen plugin (ie. figwheel, cljs-build)</li>
+
+</ul></li>
+
+</ul></li>
+
+</ul>
+</section>
+<section id="slide-orgheadline14">
+<h4 id="orgheadline14">Leiningen</h4>
+<p>
+Clojure Project Automation
+</p>
+<ul>
+<li class="fragment roll-in">create new projects</li>
+<li class="fragment roll-in">fetch dependencies for your project</li>
+<li class="fragment roll-in">run tests</li>
+<li class="fragment roll-in">run a fully-configured REPL</li>
+<li class="fragment roll-in">compile Java sources (if any)</li>
+<li class="fragment roll-in">run the project (if the project isn't a library)</li>
+<li class="fragment roll-in">generate a maven-style "pom" file for the project for interop</li>
+<li class="fragment roll-in">compile and package projects for deployment</li>
+<li class="fragment roll-in">publish libraries to repositories such as Clojars</li>
+<li class="fragment roll-in">run custom automation tasks written in Clojure (leiningen
+plug-ins)</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline15">
+<h4 id="orgheadline15">Leinengen Plugins</h4>
+<p>
+<a href="https://github.com/technomancy/leiningen/wiki/Plugins">https://github.com/technomancy/leiningen/wiki/Plugins</a>
+</p>
+<ul>
+<li>lein-cljsbuild</li>
+<li>lein-figwheel</li>
+
+</ul>
+</section>
+<section id="slide-orgheadline16">
+<h4 id="orgheadline16">CLJS</h4>
+<ul>
+<li>Easy way to package external JavaScript libraries and use them
+from within ClojureScript</li>
+<li>Handles munging issue with the advanced setting of the Google
+Closure Compiler</li>
+<li><a href="http://cljsjs.github.io/">http://cljsjs.github.io/</a></li>
+
+</ul>
+</section>
+<section id="slide-orgheadline17">
+<h4 id="orgheadline17">Single Page Applications</h4>
+<p>
+Interfaces for ReactJS
+</p>
+<ul>
+<li>Reagent</li>
+<li>Om / Om Next</li>
+
+</ul>
+</section>
+<section id="slide-orgheadline20">
+<h3 id="orgheadline20">Clojurescript: Compilation Process</h3>
+<div class="outline-text-3" id="text-orgheadline20">
+</div></section>
+<section id="slide-orgheadline19">
+<h4 id="orgheadline19">About Google Closure Compiler</h4>
+<ul>
+<li class="fragment roll-in">Compiles JavaScript to Optimized JavaScript</li>
+<li class="fragment roll-in">Removes dead code, rewrites and minimizes what's left</li>
+<li class="fragment roll-in">Munges variables and properties (can be limited)</li>
+<li class="fragment roll-in">Three settings which determine the level of optimization
+<ul>
+<li>:whitespace<sub>only</sub></li>
+<li>:standard</li>
+<li>:advanaced</li>
+
+</ul></li>
+<li class="fragment roll-in">This step is optional but recommended for production</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline21">
+<h3 id="orgheadline21">JavaScript Interop</h3>
+<ul>
+<li class="fragment roll-in">ClosjureScript provides access to the JavaScript global
+namespace via the 'js' namespace</li>
+<li class="fragment roll-in">ClojureScript can directly access the fields and methods on JavaScript
+objects</li>
+<li class="fragment roll-in">ClojureScript is designed to mirror the semantics of JavaScript as closely as possible</li>
+
+</ul>
+</section>
+<section id="slide-orgheadline22">
+<h3 id="orgheadline22">JavaScript Interop Examples</h3>
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Clojure uses 'js' namespace to access the global JavaScript variables and functions
+(js/somefunction target)
+
+;; Syntax to access a method of the target
+(.method-name target arguments ... )
+
+;; How to access console log
+(.log js/console "Hello from ClojureScript")
+
+;; Syntax to access a property of the target
+(.-property target arguments ...)
+
+(set! (.-title js/document) "Welcome to ClojureScript")
+
+(aget (.-innerHTML (.getElementById js/document "#some-div")))
+</code></pre>
+</div>
+
+</section>
+<section>
+
+<div class="org-src-container">
+
+<pre><code class="clojure">;; Some examples of the functions in ClojureScript and the JavaScript equivalence
+(js/alert "hello world!") ;; ClojureScript
+alert("hello world") ;; JavaScript
+
+
+(. js/document getElementById "someID")  ;; ClojureScript
+(.getElementByID js/document "someID") ;; ClojureScript
+(js/document.getElementbyid "someID") ;; ClojureScript
+
+document.getElementbyid("someID") ;; JavaScript
+
+(.log js/console "Hello World") ;; ClojureScript
+(js/console.log "Hello World") ;; ClojureScript
+console.log("Hello World") ;; JavaScript
+
+(set! (.-innerHTML (.item (. js/document getElementbyid "someID") 0) "New inner text")) 
+document.getElementbyid("someID")[0].innerHTML = "New inner html"
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline26">
+<h3 id="orgheadline26">Clojurescript: Your First App</h3>
+<div class="outline-text-3" id="text-orgheadline26">
+</div></section>
+<section id="slide-orgheadline23">
+<h4 id="orgheadline23">Starting a New Project</h4>
+<div class="org-src-container">
+
+<pre><code class="bash">$ lein new figwheel clj-miami -- --reagent
+$ cd clj-miami
+</code></pre>
+</div>
+</section>
+<section id="slide-orgheadline24">
+<h4 id="orgheadline24">Project Skeleton</h4>
+<div class="org-src-container">
+
+<pre><code class="bash">.
+├── README.md
+├── project.clj
+├── resources
+│   └── public
+│       ├── css
+│       │   └── style.css
+│       └── index.html
+└── src
+    └── clj_miami
+        └── core.cljs
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgheadline25">
+<h4 id="orgheadline25">Running Your App</h4>
+<div class="org-src-container">
+
+<pre><code class="bash">$ lein figwheel
+
+Figwheel: Starting server at http://localhost:3449
+Figwheel: Watching build - dev
+Compiling "resources/public/js/compiled/clj_miami.js" from ["src"]...
+Successfully compiled "resources/public/js/compiled/clj_miami.js" in 6.957 seconds.
+Figwheel: Starting CSS Watcher for paths  ["resources/public/css"]
+Launching ClojureScript REPL for build: dev
+Figwheel Controls:
+          (stop-autobuild)                ;; stops Figwheel autobuilder
+          (start-autobuild [id ...])      ;; starts autobuilder focused on optional ids
+          (switch-to-build id ...)        ;; switches autobuilder to different build
+          (reset-autobuild)               ;; stops, cleans, and starts autobuilder
+          (reload-config)                 ;; reloads build config and resets autobuild
+          (build-once [id ...])           ;; builds source one time
+          (clean-builds [id ..])          ;; deletes compiled cljs target files
+          (print-config [id ...])         ;; prints out build configurations
+          (fig-status)                    ;; displays current state of system
+  Switch REPL build focus:
+          :cljs/quit                      ;; allows you to switch REPL to another build
+    Docs: (doc function-name-here)
+    Exit: Control+C or :cljs/quit
+ Results: Stored in vars *1, *2, *3, *e holds last exception object
+Prompt will show when Figwheel connects to your application
+To quit, type: :cljs/quit
+cljs.user=> (js/alert "hello world!")
+</code></pre>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: true,
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }]
+});
+</script>
+</body>
+</html>
